@@ -2,9 +2,10 @@ import sys
 import pygame, constants
 from logger import log_state, log_event
 from player import Player
-from asteroid import Asteroid           # Ensure this is imported
+from asteroid import Asteroid           
 from asteroidfield import AsteroidField
 from shots import Shot
+import random
 
 
 
@@ -50,6 +51,12 @@ def main():
                 log_event("player_hit")
                 print("Game over!")
                 sys.exit()
+            for shot in shots: 
+                if asteroid.collides_with(shot):
+                    log_event("asteroid_shot")
+                    asteroid.split()
+                    shot.kill()
+
 
         screen.fill("black")
         for obj in drawable:
